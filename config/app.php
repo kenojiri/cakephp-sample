@@ -8,6 +8,13 @@ use Cake\Console\ConsoleOutput;
 use Cake\Log\Engine\ConsoleLog;
 use Cake\Mailer\Transport\MailTransport;
 
+$vcap_services = json_decode(getenv('VCAP_SERVICES'));
+$credentials = $vcap_services->credhub[0]->credentials;
+$database_url = $credentials->{'database_url'};
+if(empty($database_url)){
+  $database_url = env('DATABASE_URL','mysql://my_app:secret@127.0.0.1/my_app');
+}
+
 return [
     /*
      * Debug Level:
@@ -308,7 +315,7 @@ return [
              * which is the recommended value in production environments
              */
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
-            'url' => env('DATABASE_URL', 'mysql://my_app:secret@127.0.0.1/my_app'),
+            'url' => $database_url,
         ],
 
         /*

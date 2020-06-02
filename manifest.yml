@@ -5,7 +5,10 @@ applications:
   memory: 128M
   buildpacks:
   - php_buildpack
+  services:
+  - db
+  command: "$HOME/bin/cake migrations migrate && $HOME/.bp/bin/start"
   env:
-    DATABASE_URL: mysql://my_app:hoge@192.0.2.2/my_app
+    #DATABASE_URL: mysql://my_app:hoge@192.0.2.2/my_app
     DEBUG: true
     #DEBUG: false
