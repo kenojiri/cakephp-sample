@@ -1,0 +1,12 @@
+---
+applications:
+- name: cakephp-sample-staging
+  instances: 1
+  memory: 128M
+  buildpacks:
+  - php_buildpack
+  services:
+  - db
+  command: "$HOME/bin/cake migrations migrate && $HOME/.bp/bin/start"
+  env:
+    DEBUG: false
