@@ -1,0 +1,47 @@
+resources:
+- name: repo-dev
+  type: git
+  source:
+    uri: https://github.com/kenojiri/cakephp-sample.git
+    branch: develop
+#- name: repo-master
+#  type: git
+#  source:
+#    uri: https://github.com/kenojiri/cakephp-sample.git
+#    branch: master
+
+jobs:
+- name: unit-test
+  plan:
+  - get: repo-dev
+    trigger: true
+  - task: phpunit
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: php
+          tag: 7.4.3-cli
+      inputs:
+      - name: repo-dev
+      run:
+        path: bash
+        args:
+        - -c
+        - |
+          set -ex
+
+          apt-get update
+          apt-get install -y unzip libicu-dev
+          docker-php-ext-configure intl
+          docker-php-ext-install intl
+          docker-php-ext-configure pdo_mysql
+          docker-php-ext-install pdo_mysql
+
+          cd repo-dev
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php
+          php -r "unlink('composer-setup.php');"
+          php composer.phar update
+          DEBUG=true vendor/bin/phpunit
