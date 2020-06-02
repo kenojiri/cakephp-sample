@@ -83,6 +83,7 @@ jobs:
     trigger: true
   - put: cf
     params:
+      path: repo-dev
       manifest: repo-dev/manifest-staging.yml
     on_success:
       put: slack
