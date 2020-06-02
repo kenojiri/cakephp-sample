@@ -307,6 +307,7 @@ return [
              * which is the recommended value in production environments
              */
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
+            'url' => env('DATABASE_URL', 'mysql://my_app:secret@127.0.0.1/my_app'),
         ],
 
         /*
@@ -323,6 +324,12 @@ return [
             'quoteIdentifiers' => false,
             'log' => false,
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
+
+            'host' => '127.0.0.1',
+            //'port' => 'non_standard_port_number',
+            'username' => 'my_app',
+            'password' => 'secret',
+            'database' => 'test_my_app',
         ],
     ],
 
