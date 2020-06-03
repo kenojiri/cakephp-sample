@@ -12,7 +12,8 @@ $vcap_services = json_decode(getenv('VCAP_SERVICES'));
 $credentials = $vcap_services->credhub[0]->credentials;
 $database_url = $credentials->{'database_url'};
 if(empty($database_url)){
-  $database_url = env('DATABASE_URL','mysql://my_app:secret@127.0.0.1/my_app');
+  //$database_url = env('DATABASE_URL','mysql://my_app:secret@127.0.0.1/my_app');
+  $database_url = env('DATABASE_URL','mysql://my_app:secret@jumpbox.pez.kenojiri.cf/test_my_app');
 }
 
 return [
@@ -333,7 +334,8 @@ return [
             'log' => false,
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
 
-            'host' => '127.0.0.1',
+            //'host' => '127.0.0.1',
+            'host' => 'jumpbox.pez.kenojiri.cf',
             //'port' => 'non_standard_port_number',
             'username' => 'my_app',
             'password' => 'secret',
