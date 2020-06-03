@@ -6,7 +6,7 @@ applications:
   buildpacks:
   - php_buildpack
   services:
-  - db
+  - cake-test-db
   command: "$HOME/bin/cake migrations migrate && $HOME/.bp/bin/start"
   env:
-    DEBUG: false
+    DEBUG: true
