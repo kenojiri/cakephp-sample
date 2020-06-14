@@ -417,6 +417,6 @@ return [
     ],
 
     'DebugKit' => [
-        'forceEnable' => true,
+        'forceEnable' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
     ],
 ];
